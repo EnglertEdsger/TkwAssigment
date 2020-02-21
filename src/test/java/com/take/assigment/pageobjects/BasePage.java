@@ -108,7 +108,6 @@ public class BasePage implements ITestListener {
     }
 
     public void deletePostCodeCookies(){
-        //postcode
         {
 
             driver.manage().deleteCookieNamed("postcode");
