@@ -16,38 +16,36 @@ import org.testng.Assert;
 import java.util.List;
 
 public class TkwSearchPage extends BasePage {
-    WebDriverWait wait;
-String tkwStart = "https://www.thuisbezorgd.nl/en/";
-
-       // private WebDriver driver;
+    private WebDriverWait wait;
+    private String tkwStart = "https://www.thuisbezorgd.nl/en/";
 
 
+    public TkwSearchPage(WebDriver driver) {
+
+        this.driver = driver;
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver, TIMEOUT), this);
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+    }
 
     @FindBy(id = "imysearchstring")
-        WebElement searchBox;
-
+      private  WebElement searchBox;
     @FindBy (xpath = "//span[normalize-space()='8888 Alpha']")
-        WebElement alphaAdres;
+      private  WebElement alphaAdres;
     @FindBy(xpath = "//h1[normalize-space()='Time to order food']")
-        WebElement timeToOrderBanner;
+       private WebElement timeToOrderBanner;
     @FindBy (id = "submit_deliveryarea")
-        WebElement searchButton;
+      private  WebElement searchButton;
     @FindBys({
             @FindBy(xpath = "//div[contains(@id,'irestaurant')]")
     })
     private List<WebElement> restaurantsList;
     @FindBy (xpath = "//div[contains(@class,'menucard__category-name')]")
-    WebElement menuCard;
+    private   WebElement menuCard;
 
     @FindBy(xpath = "//div[contains(@class,'checkout-orderbutton-btn')]")
-    WebElement submitButton;
-//   //div[normalize-space()=contains(@class,'meal-container js-meal-container js-meal-search')]
+    private   WebElement submitButton;
 
-    public TkwSearchPage(WebDriver driver) {
-            this.driver = driver;
-            PageFactory.initElements(new AjaxElementLocatorFactory(driver, TIMEOUT), this);
-            WebDriverWait wait = new WebDriverWait(driver, 5);
-        }
+
 
         public void openURL(){
             driver.get(tkwStart);
@@ -56,7 +54,7 @@ String tkwStart = "https://www.thuisbezorgd.nl/en/";
 
         public void searchForAdress(String searchTerm) {
             System.out.println("Type in 8888");
-            write(searchBox,searchTerm);
+            writeAndClear(searchBox,searchTerm);
             System.out.println("Click outside of a search box");
             clickIfWait(timeToOrderBanner);
             System.out.println("Click the search button");
@@ -79,6 +77,9 @@ String tkwStart = "https://www.thuisbezorgd.nl/en/";
         }
         public void clickSearch(){
             clickIfWait(searchButton);
+        }
+        public void clickSearchIfVisible(){
+            clickIfVisible(searchButton);
         }
     }
 

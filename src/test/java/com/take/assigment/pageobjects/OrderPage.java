@@ -22,50 +22,45 @@ public class OrderPage extends BasePage {
     }
 
     @FindBy(xpath = "//div[contains(@class,'menucard__category-name')]")
-    WebElement menuCard;
+   private WebElement menuCard;
     @FindBys({
             @FindBy(xpath = "//div[@class='meal__wrapper']")
     })
     private List<WebElement> menuItemsList;
     @FindBy(xpath = "//*[contains(@class,'button_form cartbutton-button')]")
-    WebElement buttonOrder;
+    private  WebElement buttonOrder;
     @FindBy (xpath = "//button[contains(@class,'basket__order-button cartbutton-button')]")
-    WebElement basketButton;
+    private WebElement basketButton;
     @FindBy(id = "iaddress")
-    WebElement adressInput;
+    private WebElement adressInput;
     @FindBy(id = "ipostcode")
-    WebElement postcodeInput;
+    private WebElement postcodeInput;
     @FindBy(id = "itown")
-    WebElement townInput;
+    private WebElement townInput;
     @FindBy(id = "isurname")
-    WebElement surnameInput;
+    private WebElement surnameInput;
     @FindBy(id = "iemail")
-    WebElement emailInput;
+    private WebElement emailInput;
     @FindBy(id= "iphonenumber")
-    WebElement phoneNumberInput;
+    private WebElement phoneNumberInput;
     @FindBy(id="ideliverytime")
-    WebElement dropDownDeliveryTime;
+    private WebElement dropDownDeliveryTime;
     @FindBy(id ="ipayswith")
-    WebElement dropDownIPay;
+   private WebElement dropDownIPay;
     @FindBy(xpath = "//span[contains(@class,'order-purchaseid')]")
-    WebElement purchaseId;
+   private WebElement purchaseId;
     @FindBy(xpath = "//*[contains(@class,'button_form cartbutton-button')]")
-    WebElement orderAndPayButton;
+  private  WebElement orderAndPayButton;
     @FindBy(xpath = "//*[@id='ideliverytime']/option[@value='asap']")
-    WebElement optionAsap;
+   private WebElement optionAsap;
 
-    public void addItem(){
-       WebElement menuItem =  menuItemsList.get(0);
-       WebElement menuItem1 =  menuItemsList.get(1);
-        WebElement menuItem3 = menuItemsList.get(2);
-        WebElement menuItem4 = menuItemsList.get(3);
-       clickIfWait(menuItem);
-       clickIfWait(menuItem1);
-       clickIfWait(menuItem3);
-       clickIfWait(menuItem4);
-
-
+    public void addItem( int counter){
+        for (int i = 0; i < counter; i++) {
+            WebElement menuItem = menuItemsList.get(counter);
+            clickIfWait(menuItem);
+        }
     }
+
     public void clickOrder() {
         clickIfWait(basketButton);
       Assert.assertTrue(adressInput.isDisplayed());
@@ -86,8 +81,8 @@ public class OrderPage extends BasePage {
 public void pickDropDownsAdressInfoPage(String deliveryTime) {
     Select deliveryTimeSelect = new Select(dropDownDeliveryTime);
    // deliveryTimeSelect.selectByVisibleText(deliveryTime);
-    Boolean isAsap = optionAsap.isDisplayed();
-    if (deliveryTime == "As soon as possible" &&  isAsap ==true) {
+    boolean isAsap = optionAsap.isDisplayed();
+    if (deliveryTime.equals("As soon as possible") && isAsap) {
 
         deliveryTimeSelect.selectByVisibleText(deliveryTime);
     }
@@ -107,14 +102,14 @@ public void pickDropDownIPay(int index){
 }
 
 public String confirmationPage(){
-    String id = purchaseId.getText();
-    return id;
+    return purchaseId.getText();
     }
 
     public void clickOrderConfirm(){
       clickIfWait(orderAndPayButton);
 
     }
+
 
 
 }

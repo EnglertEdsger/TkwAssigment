@@ -6,6 +6,8 @@ import io.qameta.allure.Attachment;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestListener;
@@ -17,19 +19,29 @@ import java.io.IOException;
 import java.util.List;
 
 public class BasePage implements ITestListener {
+//    BasePage(){
+//        this.driver = driver;
+//        PageFactory.initElements(new AjaxElementLocatorFactory(driver, TIMEOUT), this);
+//        WebDriverWait wait = new WebDriverWait(driver, 5);
+//
+//    }
 
     final int TIMEOUT =3000;
-    protected WebDriver driver;
+     WebDriver driver;
 
-    public void clickIfWait(WebElement element) {
+     void clickIfWait(WebElement element) {
         element.click();
 
     }
+     void clickIfVisible(WebElement element){
+        boolean isDssplayed = element.isDisplayed();
+    if (isDssplayed = true) { element.click();}
+    }
 
-    public void write(WebElement element, String text) {
+    protected void write(WebElement element, String text) {
         element.sendKeys(text);
     }
-    public void writeAndClear(WebElement element, String text)
+     void writeAndClear(WebElement element, String text)
 {
     element.clear();
     element.sendKeys(text);
@@ -53,9 +65,7 @@ public class BasePage implements ITestListener {
 
         try {
 
-            // JSON file to Java object
-           // ClassLoader classLoader = getClass().getClassLoader();
-            //File adressFile = new File(classLoader.getResource("adressTestData2.json").getFile());
+
             File adressFile = new File("adressTestData.json");
             System.out.println(adressFile.getAbsolutePath());
 
@@ -75,16 +85,15 @@ public class BasePage implements ITestListener {
         return adressObject;
     }
     @Attachment
-    public String logOutput(List<String> outputList) {
-        String output = "";
+    private String logOutput(List<String> outputList) {
+        StringBuilder output = new StringBuilder();
         for (String o : outputList)
-            output += o + "<br/>";
-        return output;
+            output.append(o).append("<br/>");
+        return output.toString();
     }
 
 
     public void onTestSuccess(ITestResult testResult) {
-        // Reporter.getOutput(testResult)will give the output logged in testng reporter
         logOutput(Reporter.getOutput(testResult));
         onTestSuccess(testResult);
     }
@@ -95,6 +104,14 @@ public class BasePage implements ITestListener {
         }
         catch (org.openqa.selenium.NoSuchElementException e) {
             return false;
+        }
+    }
+
+    public void deletePostCodeCookies(){
+        //postcode
+        {
+
+            driver.manage().deleteCookieNamed("postcode");
         }
     }
 }
