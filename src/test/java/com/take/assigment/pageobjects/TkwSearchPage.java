@@ -54,7 +54,9 @@ public class TkwSearchPage extends BasePage {
 
         public void searchForAdress(String searchTerm) {
             System.out.println("Type in 8888");
-            writeAndClear(searchBox,searchTerm);
+            clearTextBox(searchBox);
+            write(searchBox,searchTerm);
+
             System.out.println("Click outside of a search box");
             clickIfWait(timeToOrderBanner);
             System.out.println("Click the search button");
@@ -77,9 +79,6 @@ public class TkwSearchPage extends BasePage {
         }
         public void clickSearch(){
             clickIfWait(searchButton);
-        }
-        public void clickSearchIfVisible(){
-            clickIfVisible(searchButton);
         }
     }
 

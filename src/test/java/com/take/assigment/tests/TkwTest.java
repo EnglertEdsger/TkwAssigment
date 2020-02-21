@@ -38,7 +38,6 @@ public class TkwTest {
         addMenuItems(2);
         clickOrderStep();
         fillAdress(  adress.getAdress(),adress.getPostcode(),adress.getCity(),adress.getName(),adress.getEmail(),adress.getPhoneNumber());
-        //"As soon as possible"
         pickDropDownsAdressInfo("As soon as possible");
         amountToPay(1);
         clickSubmit();
@@ -48,18 +47,13 @@ public class TkwTest {
     @Test
     public void orderLessComplexCase() {
         openPage();
-       // deleteCookies();
         searchFor8888("8888");
-       // clickShowIfVisible();
-      //  clickShow();
         verifyRestaurantsList();
         selectRestaurant();
         addMenuItems(1);
         clickOrderStep();
         fillAdress(  adress.getAdress(),adress.getPostcode(),adress.getCity(),adress.getName(),adress.getEmail(),adress.getPhoneNumber());
-        //"As soon as possible"
         pickDropDownsAdressInfo("As soon as possible");
-       // amountToPay(1);
         clickSubmit();
         confirmationPage(orderPage.confirmationPage());
     }
@@ -114,10 +108,6 @@ public class TkwTest {
     private void confirmationPage(String id){
 
     }
-    @Step
-    private void clickShowIfVisible(){
-        TkwSearchPage.clickSearchIfVisible();
-    }
     @AfterTest
     private void tearDown(){
         driver.quit();
@@ -127,12 +117,6 @@ public class TkwTest {
         TkwSearchPage.allureReport();
 
     }
-    @Step
-    private  void deleteCookies(){
-        TkwSearchPage.deletePostCodeCookies();
-
-        }
-
 
     }
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.take.assigment.dataObjects.Adress;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -33,12 +34,8 @@ public class BasePage implements ITestListener {
         element.click();
 
     }
-     void clickIfVisible(WebElement element){
-        boolean isDssplayed = element.isDisplayed();
-    if (isDssplayed = true) { element.click();}
-    }
 
-    protected void write(WebElement element, String text) {
+     void write(WebElement element, String text) {
         element.sendKeys(text);
     }
      void writeAndClear(WebElement element, String text)
@@ -92,11 +89,6 @@ public class BasePage implements ITestListener {
         return output.toString();
     }
 
-
-    public void onTestSuccess(ITestResult testResult) {
-        logOutput(Reporter.getOutput(testResult));
-        onTestSuccess(testResult);
-    }
     public boolean isElementPresent(By by) {
         try {
             driver.findElement(by);
@@ -107,10 +99,10 @@ public class BasePage implements ITestListener {
         }
     }
 
-    public void deletePostCodeCookies(){
+     void clearTextBox(WebElement element){
         {
 
-            driver.manage().deleteCookieNamed("postcode");
+            element.sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
         }
     }
 }
